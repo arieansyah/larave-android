@@ -3,11 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:layout_margin="20dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="id.kuyfutsal.kuyfutsal.LoginActivity">
+    android:orientation="vertical"
+    android:layout_margin="20dp"
+    tools:context="id.kuyfutsal.kuyfutsal.RegisterActivity">
 
     <EditText
         android:id="@+id/edtName"
@@ -19,6 +19,14 @@
         />
 
     <EditText
+        android:id="@+id/edtEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Email"
+        android:inputType="textEmailAddress"/>
+
+    <EditText
         android:id="@+id/edtPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,16 +35,9 @@
         android:inputType="textPassword"/>
 
     <Button
-        android:id="@+id/btnLogin"
-        android:onClick="LoginApp"
+        android:id="@+id/btnRegister"
+        android:onClick="Register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Button"/>
-
-    <Button
-        android:id="@+id/toRegister"
-        android:onClick="btnToRegister"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Sign Up"/>
 </LinearLayout>

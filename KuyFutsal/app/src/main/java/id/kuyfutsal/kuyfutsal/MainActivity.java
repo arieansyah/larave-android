@@ -2,7 +2,9 @@ package id.kuyfutsal.kuyfutsal;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -36,30 +38,41 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
+    Intent it;
+    SharedPreferences loginPref;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        loginPref = getSharedPreferences("MYPREFS", MODE_PRIVATE);
+        if (!loginPref.contains("name")){
+            it = new Intent(this, LoginActivity.class);
+            it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(it);
+        }
+
     }
 
     public void Jadwal(View view) {
-        Intent it = new Intent(this, JadwalActivity.class);
+        it = new Intent(this, JadwalActivity.class);
         startActivity(it);
     }
 
     public void Booked(View view) {
-        Intent it = new Intent(this, BookedActivity.class);
+        it = new Intent(this, BookedActivity.class);
         startActivity(it);
     }
 
     public void Location(View view) {
-        Intent it = new Intent(this, MapsActivity.class);
+        it = new Intent(this, MapsActivity.class);
         startActivity(it);
     }
 
     public void Profile(View view) {
-        Intent it = new Intent(this, ProfileActivity.class);
+        it = new Intent(this, ProfileActivity.class);
         startActivity(it);
     }
 

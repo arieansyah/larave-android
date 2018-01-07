@@ -13,6 +13,8 @@ use Illuminate\Http\Request;
 |
 */
 
+//Auth::routes();
+Route::post('register', 'RegisterController@register');
 //Lapangan
 Route::get('lapangan/data', 'LapanganController@listData')->name('lapangan.data');
 Route::resource('lapangan', 'LapanganController');

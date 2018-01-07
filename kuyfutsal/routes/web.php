@@ -37,3 +37,7 @@ Route::delete('jadwal/{id}', 'JadwalController@destroy');
 //Route::patch('jadwal/{id}', 'JadwalController@update');
 //Route::controller('/jadwal', 'JadwalController');
 Route::resource('jadwal', 'JadwalController');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
