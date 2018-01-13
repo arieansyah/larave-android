@@ -15,6 +15,8 @@ use Illuminate\Http\Request;
 
 //Auth::routes();
 Route::post('register', 'RegisterController@register');
+Route::post('login', 'LoginController@login');
+
 //Lapangan
 Route::get('lapangan/data', 'LapanganController@listData')->name('lapangan.data');
 Route::resource('lapangan', 'LapanganController');
@@ -33,5 +35,5 @@ Route::get('jadwal', 'JadwalController@index');
 Route::resource('jadwal', 'JadwalController');
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+    dd("salut");
 });
