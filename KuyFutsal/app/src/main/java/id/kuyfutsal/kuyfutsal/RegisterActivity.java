@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,9 +24,9 @@ import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    EditText name;
-    EditText email;
-    EditText password;
+    EditText edtName;
+    EditText edtEmail;
+    EditText edtPassword;
     Button register;
 
     @Override
@@ -33,9 +34,9 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        name = (EditText) findViewById(R.id.edtName);
-        email = (EditText) findViewById(R.id.edtEmail);
-        password = (EditText) findViewById(R.id.edtPassword);
+        edtName = (EditText) findViewById(R.id.edtName);
+        edtEmail = (EditText) findViewById(R.id.edtEmail);
+        edtPassword = (EditText) findViewById(R.id.edtPassword);
 
     }
 
@@ -43,16 +44,44 @@ public class RegisterActivity extends AppCompatActivity {
     public void Register(View view) {
 
         int method = Request.Method.POST;
-        String url = "http://192.168.100.14:8000/api/register";
+        String url = "http://192.168.100.15:8000/api/register";
+
+        final String name = edtName.getText().toString().trim();
+        final String email = edtEmail.getText().toString().trim();
+        final String password = edtPassword.getText().toString().trim();
+
+        if (TextUtils.isEmpty(name)) {
+            edtName.setError("Please enter username");
+            edtName.requestFocus();
+            return;
+        }
+
+        if (TextUtils.isEmpty(email)) {
+            edtEmail.setError("Please enter your email");
+            edtEmail.requestFocus();
+            return;
+        }
+
+        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            edtEmail.setError("Enter a valid email");
+            edtEmail.requestFocus();
+            return;
+        }
+
+        if (TextUtils.isEmpty(password)) {
+            edtPassword.setError("Enter a password");
+            edtPassword.requestFocus();
+            return;
+        }
 
         StringRequest sr = new StringRequest(method, url,
                 new Response.Listener<String>(){
                     @Override
                     public void onResponse(String response){
                         SharedPreferences sp = getSharedPreferences("MYPREFS", MODE_PRIVATE);
-                        String newName = name.getText().toString();
-                        String newEmail = email.getText().toString();
-                        String newPassword = password.getText().toString();
+                        String newName = name;
+                        String newEmail = email;
+                        String newPassword = password;
 
                         SharedPreferences.Editor editor = sp.edit();
 
@@ -62,29 +91,31 @@ public class RegisterActivity extends AppCompatActivity {
                         editor.commit();
                         editor.putString("password", newPassword);
                         editor.commit();
-//                        editor.putString(newName + newPassword + "data", newName + "\n" + newEmail);
-//                        editor.commit();
 
                         Toast.makeText(getBaseContext(), "Data Tersimpan", Toast.LENGTH_SHORT).show();
+                        finish();
                         Intent it = new Intent(getBaseContext(), LoginActivity.class);
                         startActivity(it);
-//                        Toast.makeText(getBaseContext(), "Data Tersimpan", Toast.LENGTH_SHORT).show();
-//                        finish();
                     }
                 },
                 new Response.ErrorListener(){
                     @Override
                     public void onErrorResponse(VolleyError error){
                         error.printStackTrace();
+
+                            edtEmail.setError("Email is Already Exist");
+                            edtEmail.requestFocus();
+
+
                     }
                 }
         ){
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> params = new HashMap<>();
-                params.put("name", name.getText().toString());
-                params.put("email", email.getText().toString());
-                params.put("password", password.getText().toString());
+                params.put("name", name);
+                params.put("email", email);
+                params.put("password", password);
 
                 return params;
             }
@@ -92,26 +123,6 @@ public class RegisterActivity extends AppCompatActivity {
 
         RequestQueue queue = Volley.newRequestQueue(this);
         queue.add(sr);
-
-//        SharedPreferences sp = getSharedPreferences("MYPREFS", MODE_PRIVATE);
-//        String newName = name.getText().toString();
-//        String newEmail = email.getText().toString();
-//        String newPassword = password.getText().toString();
-//
-//        SharedPreferences.Editor editor = sp.edit();
-//
-//        editor.putString("name",newName);
-//        editor.commit();
-//        editor.putString("email",newEmail);
-//        editor.commit();
-//        editor.putString("password", newPassword);
-//        editor.commit();
-////                        editor.putString(newName + newPassword + "data", newName + "\n" + newEmail);
-////                        editor.commit();
-//
-//        Toast.makeText(getBaseContext(), "Data Tersimpan", Toast.LENGTH_SHORT).show();
-//        Intent it = new Intent(getBaseContext(), LoginActivity.class);
-//        startActivity(it);
 
     }
 }

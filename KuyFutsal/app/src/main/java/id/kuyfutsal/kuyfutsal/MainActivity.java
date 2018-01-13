@@ -92,7 +92,18 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Toast.makeText(this, "ujang", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Not Function", Toast.LENGTH_SHORT).show();
+            return true;
+        }else if (id == R.id.action_logout){
+            Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show();
+            SharedPreferences.Editor logPrefEdit = loginPref.edit();
+            logPrefEdit.clear();
+            logPrefEdit.apply();
+
+            it = new Intent(this, LoginActivity.class);
+            it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(it);
             return true;
         }
 

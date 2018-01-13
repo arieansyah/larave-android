@@ -5,14 +5,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:layout_margin="20dp"
+    android:gravity="center"
+    android:orientation="vertical"
     tools:context="id.kuyfutsal.kuyfutsal.RegisterActivity">
 
     <EditText
         android:id="@+id/edtName"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:ems="10"
         android:hint="Name"
         android:inputType="textPersonName"
@@ -21,7 +22,7 @@
     <EditText
         android:id="@+id/edtEmail"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:ems="10"
         android:hint="Email"
         android:inputType="textEmailAddress"/>
@@ -29,15 +30,18 @@
     <EditText
         android:id="@+id/edtPassword"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:ems="10"
         android:hint="Password"
+        android:layout_marginBottom="20dp"
         android:inputType="textPassword"/>
 
     <Button
         android:id="@+id/btnRegister"
-        android:onClick="Register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button"/>
+        android:onClick="Register"
+        android:background="@color/colorPrimary"
+        android:textColor="@android:color/white"
+        android:text="SIGN UP"/>
 </LinearLayout>
