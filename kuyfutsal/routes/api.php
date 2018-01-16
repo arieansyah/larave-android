@@ -16,7 +16,11 @@ use Illuminate\Http\Request;
 //Auth::routes();
 Route::post('register', 'RegisterController@register');
 Route::post('login', 'LoginController@login');
+//Route::get('getUser/{id}/edit', 'LoginController@user');
+Route::put('upUser/{id}', 'LoginController@update');
 Route::get('getUser/{username}', 'LoginController@getUser');
+
+Route::get('booked/mobile/{username}', 'BookingController@booked_mobile');
 //Lapangan
 Route::get('lapangan/data', 'LapanganController@listData')->name('lapangan.data');
 Route::resource('lapangan', 'LapanganController');

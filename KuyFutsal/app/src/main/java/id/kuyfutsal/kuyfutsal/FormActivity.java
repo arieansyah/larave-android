@@ -1,6 +1,7 @@
 package id.kuyfutsal.kuyfutsal;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -24,6 +25,7 @@ import java.util.Map;
 public class FormActivity extends AppCompatActivity {
 
     private EditText id_jadwal, status, nama, no_hp;
+    String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +36,10 @@ public class FormActivity extends AppCompatActivity {
 
         nama = (EditText) findViewById(R.id.nama);
         no_hp = (EditText) findViewById(R.id.phone);
+
+        SharedPreferences sp = getSharedPreferences("MYPREFS", MODE_PRIVATE);
+        //SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        username = sp.getString("username", "nothing");
 
         Bundle it = getIntent().getExtras();
 //        String idJdwl = it.getString("txtJadwal");
@@ -71,6 +77,7 @@ public class FormActivity extends AppCompatActivity {
                 params.put("nama", nama.getText().toString());
                 params.put("jadwal_id", id_jadwal.getText().toString());
                 params.put("no_hanphone", no_hp.getText().toString());
+                params.put("username", username.toString());
                 params.put("status", "Proses...");
 
                 return params;

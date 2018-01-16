@@ -22,7 +22,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class ProfileActivity extends AppCompatActivity {
-    String email, name, username;
+    String email, name, username, id;
     TextView txtName, txtEmail, txtUsername;
     ProgressDialog pd;
 
@@ -38,8 +38,9 @@ public class ProfileActivity extends AppCompatActivity {
         SharedPreferences sp = getSharedPreferences("MYPREFS", MODE_PRIVATE);
         //SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
         username = sp.getString("username", "nothing");
-        name = sp.getString("name", "nothing");
-        email = sp.getString("email", "nothing");
+//        name = sp.getString("name", "nothing");
+//        email = sp.getString("email", "nothing");
+//        id = sp.getString("id", "id");
 
         getData();
     }
@@ -65,8 +66,26 @@ public class ProfileActivity extends AppCompatActivity {
                                 JSONObject data = response.getJSONObject(i);
                                 txtName.setText(data.getString("name"));
                                 txtEmail.setText(data.getString("email"));
+                                String id = data.getString("id_user");
+
+                                SharedPreferences sp = getSharedPreferences("MYPREFS", MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sp.edit();
+
+                                String name = txtName.getText().toString();
+                                String username = txtUsername.getText().toString();
+                                String email = txtEmail.getText().toString();
+
+                                editor.putString("id_user", id);
+                                editor.commit();
+                                editor.putString("name", name);
+                                editor.commit();
+                                editor.putString("username", username);
+                                editor.commit();
+                                editor.putString("email", email);
+                                editor.commit();
 
                             } catch (JSONException e) {
+                                pd.cancel();
                                 e.printStackTrace();
                             }
                         }

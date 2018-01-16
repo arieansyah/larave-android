@@ -123,6 +123,7 @@ class JadwalController extends Controller
       // $booking->nama = $request->nama;
       // $booking->no_hanphone = $request->no_handphone;
       // $booking->status = $request->status;
+      // $booking->username = $request->username;
       // $booking->save();
 
       Booking::create($req->all());

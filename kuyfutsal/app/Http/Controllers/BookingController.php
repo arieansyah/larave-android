@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Booking;
 
 class BookingController extends Controller
 {
@@ -14,6 +15,14 @@ class BookingController extends Controller
     public function index()
     {
         //
+    }
+
+    public function booked_mobile($username){
+      $booking = Booking::leftJoin('jadwals', 'jadwals.id_jadwal', '=', 'bookings.jadwal_id')
+      ->where('username', $username)
+      ->get();
+      return response()->json($booking);
+
     }
 
     /**

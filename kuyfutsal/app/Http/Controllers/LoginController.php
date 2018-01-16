@@ -53,4 +53,19 @@ class LoginController extends Controller
     // $user = str_replace($em);
     // dd($user);
   }
+
+  public function user($id){
+    $user = User::find($id);
+    return response()->json($user);
+  }
+
+  public function update(Request $request, $id){
+
+    $user = User::where('id_user', $id)->first();
+    $user->name = $request->name;
+    $user->username = $request->username;
+    $user->email = $request->email;
+    $user->password = bcrypt($request->password);
+    $user->update();
+  }
 }

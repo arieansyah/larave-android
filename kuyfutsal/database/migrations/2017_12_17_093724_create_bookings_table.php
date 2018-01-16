@@ -18,6 +18,7 @@ class CreateBookingsTable extends Migration
             $table->integer('jadwal_id')->unsigned();
             $table->string('status');
             $table->string('nama');
+            $table->string('username');
             $table->bigInteger('no_hanphone');
             $table->timestamps();
         });
