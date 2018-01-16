@@ -26,8 +26,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     EditText edtName;
     EditText edtEmail;
-    EditText edtPassword;
-    Button register;
+    EditText edtPassword, editUsername;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +34,7 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         edtName = (EditText) findViewById(R.id.edtName);
+        editUsername = (EditText) findViewById(R.id.edtUsername);
         edtEmail = (EditText) findViewById(R.id.edtEmail);
         edtPassword = (EditText) findViewById(R.id.edtPassword);
 
@@ -44,15 +44,22 @@ public class RegisterActivity extends AppCompatActivity {
     public void Register(View view) {
 
         int method = Request.Method.POST;
-        String url = "http://192.168.100.15:8000/api/register";
+        String url = "http://192.168.100.4:8000/api/register";
 
         final String name = edtName.getText().toString().trim();
         final String email = edtEmail.getText().toString().trim();
+        final String username = editUsername.getText().toString().trim();
         final String password = edtPassword.getText().toString().trim();
 
         if (TextUtils.isEmpty(name)) {
-            edtName.setError("Please enter username");
+            edtName.setError("Please enter your name");
             edtName.requestFocus();
+            return;
+        }
+
+        if (TextUtils.isEmpty(username)) {
+            editUsername.setError("Please enter username");
+            editUsername.requestFocus();
             return;
         }
 
@@ -78,21 +85,25 @@ public class RegisterActivity extends AppCompatActivity {
                 new Response.Listener<String>(){
                     @Override
                     public void onResponse(String response){
-                        SharedPreferences sp = getSharedPreferences("MYPREFS", MODE_PRIVATE);
-                        String newName = name;
-                        String newEmail = email;
-                        String newPassword = password;
+//                        SharedPreferences sp = getSharedPreferences("MYPREFS", MODE_PRIVATE);
+//                        String newName = name;
+//                        String newUsername = username;
+//                        String newEmail = email;
+//                        String newPassword = password;
+//
+//                        SharedPreferences.Editor editor = sp.edit();
+//
+//                        editor.putString("name",newName);
+//                        editor.commit();
+//                        editor.putString("name",newName);
+//                        editor.commit();
+//                        editor.putString("email",newEmail);
+//                        editor.commit();
+//                        editor.putString("password", newPassword);
+//                        editor.commit();
 
-                        SharedPreferences.Editor editor = sp.edit();
-
-                        editor.putString("name",newName);
-                        editor.commit();
-                        editor.putString("email",newEmail);
-                        editor.commit();
-                        editor.putString("password", newPassword);
-                        editor.commit();
-
-                        Toast.makeText(getBaseContext(), "Data Tersimpan", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getBaseContext(), "Data Already Saved", Toast
+                                .LENGTH_SHORT).show();
                         finish();
                         Intent it = new Intent(getBaseContext(), LoginActivity.class);
                         startActivity(it);
@@ -103,8 +114,8 @@ public class RegisterActivity extends AppCompatActivity {
                     public void onErrorResponse(VolleyError error){
                         error.printStackTrace();
 
-                            edtEmail.setError("Email is Already Exist");
-                            edtEmail.requestFocus();
+                            editUsername.setError("The username has already been taken");
+                            editUsername.requestFocus();
 
 
                     }
@@ -114,6 +125,7 @@ public class RegisterActivity extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> params = new HashMap<>();
                 params.put("name", name);
+                params.put("username", username);
                 params.put("email", email);
                 params.put("password", password);
 

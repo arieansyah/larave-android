@@ -35,25 +35,20 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void LoginApp(View view) {
-        final EditText edtEmail, edtPassword;
+        final EditText edtUsername, edtPassword;
 
-        edtEmail = (EditText) findViewById(R.id.edtEmail);
+        edtUsername = (EditText) findViewById(R.id.edtUsername);
         edtPassword = (EditText) findViewById(R.id.edtPassword);
 
-        final String email = edtEmail.getText().toString().trim();
+        final String username = edtUsername.getText().toString().trim();
         final String password = edtPassword.getText().toString().trim();
 
-        if (TextUtils.isEmpty(email)) {
-            edtEmail.setError("Please enter your email");
-            edtEmail.requestFocus();
+        if (TextUtils.isEmpty(username)) {
+            edtUsername.setError("Please enter your email");
+            edtUsername.requestFocus();
             return;
         }
 
-        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            edtEmail.setError("Enter a valid email");
-            edtEmail.requestFocus();
-            return;
-        }
 
         if (TextUtils.isEmpty(password)) {
             edtPassword.setError("Enter a password");
@@ -62,7 +57,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         int method = Request.Method.POST;
-        String url = "http://192.168.100.15:8000/api/login";
+        String url = "http://192.168.100.4:8000/api/login";
 
         StringRequest sr = new StringRequest(method, url,
                 new Response.Listener<String>(){
@@ -73,13 +68,13 @@ public class LoginActivity extends AppCompatActivity {
                             SharedPreferences sp = getSharedPreferences("MYPREFS", MODE_PRIVATE);
                             SharedPreferences.Editor editor = sp.edit();
 
-                            editor.putString("email",email);
+                            editor.putString("username",username);
                             editor.commit();
                             editor.putString("password",password);
                             editor.commit();
-                            finish();
                             Intent it = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(it);
+                            finish();
 
                         }else {
                             Toast.makeText(LoginActivity.this, "Email & Password not Match !!!",
@@ -98,7 +93,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> params = new HashMap<>();
-                params.put("email", email);
+                params.put("username", username);
                 params.put("password", password);
 
                 return params;

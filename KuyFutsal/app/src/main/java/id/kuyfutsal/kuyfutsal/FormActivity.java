@@ -47,7 +47,7 @@ public class FormActivity extends AppCompatActivity {
 
     public void saveData (View view) {
         int method = Request.Method.POST;
-        String url = "http://192.168.100.14:8000/api/jadwal";
+        String url = "http://192.168.100.4:8000/api/jadwal";
 
         StringRequest sr = new StringRequest(method, url,
                 new Response.Listener<String>(){

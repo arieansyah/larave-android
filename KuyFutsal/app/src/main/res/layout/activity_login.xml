@@ -24,13 +24,12 @@
         android:textStyle="bold"/>
 
     <EditText
-        android:id="@+id/edtEmail"
+        android:id="@+id/edtUsername"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:ems="10"
-        android:hint="Email"
         android:layout_marginBottom="10dp"
-        android:inputType="textEmailAddress"/>
+        android:ems="10"
+        android:hint="Username"/>
 
     <EditText
         android:id="@+id/edtPassword"
@@ -42,13 +41,14 @@
         android:inputType="textPassword"/>
 
     <TextView
+        android:id="@+id/toRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Not yet Registered ?"
-        android:id="@+id/toRegister"
-        android:onClick="btnToRegister"
-        android:textAlignment="textEnd"
         android:layout_marginBottom="10dp"
+        android:layout_marginRight="10dp"
+        android:onClick="btnToRegister"
+        android:text="Not yet Registered ?"
+        android:textAlignment="viewEnd"
         android:textSize="18sp"
         android:textStyle="italic"/>
 

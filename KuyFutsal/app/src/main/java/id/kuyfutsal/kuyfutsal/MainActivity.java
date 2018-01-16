@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         loginPref = getSharedPreferences("MYPREFS", MODE_PRIVATE);
-        if (!loginPref.contains("name")){
+        if (!loginPref.contains("username") && !loginPref.contains("password")){
             it = new Intent(this, LoginActivity.class);
             it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Not Function", Toast.LENGTH_SHORT).show();
             return true;
         }else if (id == R.id.action_logout){
-            Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "You are Logged out", Toast.LENGTH_SHORT).show();
             SharedPreferences.Editor logPrefEdit = loginPref.edit();
             logPrefEdit.clear();
             logPrefEdit.apply();

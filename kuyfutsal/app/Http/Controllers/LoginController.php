@@ -34,12 +34,23 @@ class LoginController extends Controller
     // ->where('password', $request->password)
     // ->first();
 
-    
-    if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+
+    if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
       echo "success";
     }else {
       echo "failed";
     }
 
+  }
+
+  public function getUser($username){
+    //$decode = json_decode($email);
+    $user = User::where('username', $username)->get();
+    return response()->json($user);
+    // $em = yoman;
+    // //var_dump($em);
+    //
+    // $user = str_replace($em);
+    // dd($user);
   }
 }

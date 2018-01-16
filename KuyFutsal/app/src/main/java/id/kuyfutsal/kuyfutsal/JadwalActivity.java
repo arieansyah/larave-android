@@ -24,7 +24,7 @@ import java.util.ArrayList;
 
 public class JadwalActivity extends AppCompatActivity {
 
-    private static final String URL = "http://192.168.100.14:8000/api/jadwal/mobile";
+    private static final String URL = "http://192.168.100.4:8000/api/jadwal/mobile";
 
     private ArrayList<Jadwal> dataJadwal;
     private RecyclerView listJadwal;

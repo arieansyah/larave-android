@@ -18,8 +18,11 @@ class RegisterController extends Controller
 
 
       // dd($request->all());
+
+
       $user = new User();
       $user->name = $request->name;
+      $user->username = $request->username;
       $user->email = $request->email;
       $user->password = bcrypt($request->password);
       $user->save();
